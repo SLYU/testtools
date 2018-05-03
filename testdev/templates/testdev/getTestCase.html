@@ -1,0 +1,46 @@
+{% extends "testdev/base.html" %}
+{% load bootstrap3 %}
+{% block header %}
+  <h2>测试用例查询页面</h2>
+{% endblock header %}
+{% block content %}
+    <form action="{% url 'testdev:getTestCase' %}" method = 'post' class="form" enctype="multipart/form-data">
+      {% csrf_token %}
+      {% bootstrap_form form %}
+      {% buttons %}
+        <button name="submit" class="btn btn-primary">点击查询</button>
+      {% endbuttons %}
+    </form>
+    <a href="{% url 'testdev:addTestCase' %}">新增测试用例</a>
+    <div id ='result' style="width:100%;margin:0px;">
+        <table class ='table table-bordered'>
+            <thead>
+                <tr>
+                    <th>业务名称</th>
+                    <th>用例编号</th>
+                    <th>任务名称</th>
+                    <th>预期任务标的</th>
+                    <th>预期礼包配置</th>
+                    <th>指标元数据</th>
+                    <th>用例操作</th>
+                </tr>
+            </thead>
+            {% for a in r %}
+            <tbody>
+                <td>{{ a.production }}</td>
+                <td>{{ a.id }}</td>
+                <td>{{ a.taskdesc }}</td>
+                <td>{{ a.procallcount }}</td>
+                <td>{{ a.amsid }}</td>
+                <td>{{ a.metaruleid }}</td>
+                <td><a href="{% url 'testdev:delTestCase' %}?id={{a.id}}" >编辑</a>
+                    <a href="{% url 'testdev:delTestCase' %}?id={{a.id}}" >执行</a>
+                    <a href="{% url 'testdev:delTestCase' %}?id={{a.id}}" >删除</a>
+                </td>
+            {% empty %}
+
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock content %}

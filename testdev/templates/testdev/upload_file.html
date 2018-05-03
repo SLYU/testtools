@@ -1,0 +1,25 @@
+{% extends "testdev/base.html" %}
+{% load bootstrap3 %}
+{% block header %}
+    <h2>多列包生成工具</h2>
+{% endblock header %}
+{% block content %}
+    <form action="{% url 'testdev:upload_file' %}" method = 'post' class="form" enctype="multipart/form-data" >
+    {% csrf_token %}
+        <h3>一·基本信息填写</h3>
+    {% bootstrap_field form.file %}
+    {% bootstrap_field form.uri %}
+    {% bootstrap_field form.method %}
+    {% bootstrap_field form.headers %}
+    {% bootstrap_field form.parms %}
+    {% bootstrap_field form.pos %}
+    {% bootstrap_field form.zhanghao %}
+        <h3>二·其他信息填写</h3>
+    {% bootstrap_field form.tofileds %}
+    {% bootstrap_field form.floattoint %}
+    {% bootstrap_field form.nub %}
+    {% buttons %}
+      <button name="submit" class="btn btn-primary">开始任务</button>
+    {% endbuttons %}
+    </form>
+{% endblock content%}
